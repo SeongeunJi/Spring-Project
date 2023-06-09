@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link th:href="@{/css/signup.css}" rel="stylesheet">
+    <title>Sign Up Page</title>
+</head>
+
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+<div class="container">
+<div th:replace="~{fragments/loginPageBodyHeader :: loginPageBodyHeader}"></div>
+
+<form class="row g-3 lg-form needs-validation was-validated" role="form" action="/members/new" th:object="${memberForm}" method="post" novalidate="">
+    <h2 class="title">Create new account</h2>
+    <div class="form-group">
+        <label for="name" th:for="name" class="form-label" >Your name</label>
+        <input type="text" class="form-control" th:field="*{name}" id="name" required placeholder="First and last name">
+        <div class="invalid-feedback" th:class="invalid-feedback">
+            Please provide your name
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="email" th:for="email" class="form-label" >Email</label>
+        <input type="email" class="form-control" th:field="*{email}" id="email" required placeholder="Your login ID">
+        <div class="invalid-feedback" th:class="invalid-feedback">
+            Please provide an Email
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" th:for="password" class="form-label" >Password</label>
+        <input type="password" class="form-control" th:field="*{password}" id="password" required>
+        <div class="invalid-feedback">
+            <span th:errors="*{password}"></span>
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="passwordCheck" th:for="name" class="form-label" >Password Re-Enter</label>
+        <input type="password" class="form-control" th:field="*{passwordCheck}" id="passwordCheck" required>
+        <div class="invalid-feedback" th:each="err : ${#fields.globalErrors}">
+            <span>[[${err}]]</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="">
+            <label for="validationCustom04" class="form-label">Country</label>
+            <select class="form-select" id="validationCustom04" th:field="*{country}" required>
+                <option selected value="">Choose Country</option>
+                <option th:each="country : ${countryMap}" th:value="${country.getKey()}" th:text="${country.getValue()}"></option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a valid Country.
+            </div>
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="city" th:for="city" class="form-label">City</label>
+        <input type="text" class="form-control" th:field="*{city}" id="city" required="">
+        <div class="invalid-feedback">
+            Please provide a valid city.
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="street" class="form-label">address1</label>
+        <input type="text" id="street" th:field="*{street}" class="form-control" required="">
+        <div class="invalid-feedback">
+            Please provide a valid address.
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="zip" class="form-label">Post Code</label>
+        <input type="text" class="form-control" id="zip" th:field="*{zip}" required="">
+        <div class="invalid-feedback">
+            Please provide a valid zip.
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="form-check">
+            <input class="form-check-input" th:field="*{assertToTerms}" type="checkbox" id="assertToTerms"  required="">
+            <label class="form-check-label" for="assertToTerms">
+                Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+                You must agree before submitting.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit"
+        th:onclick="|location.href='@{/}'|">Submit</button>
+        <button type="reset" class="btn btn-primary"
+        th:onclick="|location.href='@{/}'|">Cancel</button>
+    </div>
+</form>
+<br/>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

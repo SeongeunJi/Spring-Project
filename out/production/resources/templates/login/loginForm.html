@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Login Page</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+      .field-error{
+        display: inline-block;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: -.5px;
+        color: #ff003e;
+        vertical-align: middle;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css"
+          th:href="@{/css/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+    <form th:object="${form}" th:action method="post">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="form-floating">
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com"/>
+            <label for="email" th:for="email">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password" />
+            <label for="password" th:for="password">Password</label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label for="remember" th:for="remember">
+                <input type="checkbox" th:field="*{remember}" id="remember"> Remember me
+            </label>
+            <br>
+            <span class="fw-light">Need an account?
+                <a class="fw-light link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="--bs-link-hover-color-rgb: 25, 135, 84;" href="/members/new">
+                Sign Up
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="--bs-link-hover-color-rgb: 25, 135, 84;" width="16" height="16" fill="currentColor" class="bi bi-person-add icon-link icon-link-hover" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                    <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                </svg>
+                </a>
+            </span>
+        </div>
+
+        <div th:if="${#fields.hasErrors('password')} and ${#fields.hasErrors('email')}">
+            <span th:class="field-error" th:errors="*{email}"></span>
+        </div>
+        <div th:if="${#fields.hasErrors('email')} and not ${#fields.hasErrors('password')}">
+            <span th:class="field-error" th:errors="*{email}"></span>
+        </div>
+        <div th:if="${#fields.hasErrors('password')} and not ${#fields.hasErrors('email')}">
+            <span th:class="field-error" th:errors="*{password}"></span>
+        </div>
+        <div th:each="err : ${#fields.globalErrors}">
+            <span th:class="field-error" th:text="${err}"></span>
+        </div>
+
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+    </form>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</main>
+
+</body>
+</html>
